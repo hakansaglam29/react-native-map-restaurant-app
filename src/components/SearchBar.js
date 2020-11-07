@@ -1,14 +1,18 @@
 import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {View, TextInput} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {searchBarStyle} from '../Style'
 
 const SearchBar = () => {
     return(
-        <SafeAreaView>
-            <View>
-                <Text> SearchBar Component</Text>
-            </View>
-        </SafeAreaView>
+        <View style={searchBarStyle.container}>
+            <Icon name='magnify' size={20} color='gray'/>
+            <TextInput
+            placeholder='Search a city'
+            style={searchBarStyle.input}
+            
+            />
+        </View>
     )
 }
 

@@ -1,14 +1,12 @@
 import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 import {cityStyle} from '../Style';
 
-const City = () => {
+const City = (props) => {
     return(
-        <SafeAreaView>
-            <View>
-                <Text> City Component</Text>
-            </View>
-        </SafeAreaView>
+        <TouchableOpacity style={cityStyle.container}>
+            <Text style={cityStyle.text}> {props.cityName}</Text>
+        </TouchableOpacity>
     )
 }
 
