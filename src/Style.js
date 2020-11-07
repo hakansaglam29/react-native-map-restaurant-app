@@ -25,10 +25,13 @@ export const cityStyle = StyleSheet.create({
         borderRadius:10,
         backgroundColor:'white',
         borderWidth:1,
-        borderColor: '#e0e0e0'
+        borderColor: '#e0e0e0',
+        flexDirection:'row',
+        alignItems:'center',
     },
     text: {
-
+        fontWeight:'bold',
+        color:'#424242'
     }
 });
 
