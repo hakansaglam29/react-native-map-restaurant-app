@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {SafeAreaView, View, FlatList, Text} from 'react-native';
 import Axios from 'axios'
 
@@ -14,6 +14,7 @@ let originalList = [];
 export default Main = (props) => {
     const [cityList, setcityList] = React.useState([]);
     const [restaurants, setRestaurants] = React.useState([]);
+    const mapRef = useRef([]);
 
 
     // Burada {data} yerine response yazabilirdik. Response.data ile de cagirirdik.
@@ -31,13 +32,7 @@ export default Main = (props) => {
 
     const renderItem = ({item}) => <City cityName={item} onSelect={() => onCitySelect(item)}/>;
 
-    const onCitySelect = async (city) => {
-        const {data: {restaurants: myRes}} = await Axios.get(
-            "http://opentable.herokuapp.com/api/restaurants?city=" + city,
-            );
-            setRestaurants(myRes)
-            console.log(myRes)
-    }
+
 
     function onCitySearch(text){
         const filteredCityList = originalList.filter(item => {
@@ -48,10 +43,33 @@ export default Main = (props) => {
         setcityList(filteredCityList);
     }
 
+    const onCitySelect = async (city) => {
+    
+        const {data: {restaurants: myRes}} = await Axios.get("http://opentable.herokuapp.com/api/restaurants?city=" + city,);
+    
+        const restaurantLatLong = myRes.map(res => {
+        return {
+                latitude: res.lat,
+                longitude: res.lng,
+                    }
+        })
+        mapRef.current.fitToCoordinates(restaurantLatLong, {
+            edgePadding:{top: 150,
+            right: 100,
+            bottom: 100,
+            left: 100}
+          })
+
+        setRestaurants(myRes)
+        console.log(restaurantLatLong)
+    }
+
+
     return(
         <SafeAreaView style={{flex:1}}>
             <View style={{flex:1}}>
                 <MapView
+                ref={mapRef}
                 style={{flex:1}}
                 initialRegion={{
                 latitude: 37.78825,
