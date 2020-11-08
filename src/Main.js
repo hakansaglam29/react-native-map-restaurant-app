@@ -13,6 +13,7 @@ let originalList = [];
 
 export default Main = (props) => {
     const [cityList, setcityList] = React.useState([]);
+    const [restaurants, setRestaurants] = React.useState([]);
 
 
     // Burada {data} yerine response yazabilirdik. Response.data ile de cagirirdik.
@@ -31,10 +32,11 @@ export default Main = (props) => {
     const renderItem = ({item}) => <City cityName={item} onSelect={() => onCitySelect(item)}/>;
 
     const onCitySelect = async (city) => {
-        const {data} = await Axios.get(
+        const {data: {restaurants: myRes}} = await Axios.get(
             "http://opentable.herokuapp.com/api/restaurants?city=" + city,
             );
-            console.log(data)
+            setRestaurants(myRes)
+            console.log(myRes)
     }
 
     function onCitySearch(text){
@@ -56,8 +58,18 @@ export default Main = (props) => {
                 longitude: -122.4324,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-                    }}
-                />
+                    }}>
+
+                {restaurants.map((marker, index) => (
+                    <MapView.Marker
+                        key={index}
+                        coordinate={{
+                            latitude: marker.lat,
+                            longitude: marker.lng,
+                        }}
+                    />))}
+
+                </MapView>
                 <View style={{position:'absolute'}}>
                     <SearchBar onSearch={onCitySearch}/>
                     <FlatList
