@@ -5,7 +5,10 @@ import {cityStyle} from '../Style';
 
 const City = (props) => {
     return(
-        <TouchableOpacity style={cityStyle.container}>
+        <TouchableOpacity 
+            style={cityStyle.container}
+            onPress={props.onSelect}
+        >
             <Icon name='city' size={20} color='#424242'/>
             <Text style={cityStyle.text}> {props.cityName}</Text>
         </TouchableOpacity>

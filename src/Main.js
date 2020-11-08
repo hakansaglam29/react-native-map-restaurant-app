@@ -28,7 +28,11 @@ export default Main = (props) => {
             fetchCities();
         }, [])
 
-    const renderItem = ({item}) => <City cityName={item}/>;
+    const renderItem = ({item}) => <City cityName={item} onSelect={() => onCitySelect(item)}/>;
+
+    function onCitySelect(city){
+        console.log(city)
+    }
 
     function onCitySearch(text){
         const filteredCityList = originalList.filter(item => {
@@ -55,6 +59,7 @@ export default Main = (props) => {
                     <SearchBar onSearch={onCitySearch}/>
                     <FlatList
                         horizontal
+                        showsHorizontalScrollIndicator = {false}
                         data={cityList}
                         renderItem={renderItem}
                         keyExtractor={(_, index) => index.toString()}
