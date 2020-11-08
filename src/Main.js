@@ -30,8 +30,11 @@ export default Main = (props) => {
 
     const renderItem = ({item}) => <City cityName={item} onSelect={() => onCitySelect(item)}/>;
 
-    function onCitySelect(city){
-        console.log(city)
+    const onCitySelect = async (city) => {
+        const {data} = await Axios.get(
+            "http://opentable.herokuapp.com/api/restaurants?city=" + city,
+            );
+            console.log(data)
     }
 
     function onCitySearch(text){
