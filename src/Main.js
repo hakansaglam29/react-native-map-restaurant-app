@@ -5,8 +5,15 @@ import Axios from 'axios'
 import {City,RestaurantDetail,SearchBar} from "./components";
 import MapView from 'react-native-maps';
 
+
+
+
+
+let originalList = [];
+
 export default Main = (props) => {
     const [cityList, setcityList] = React.useState([]);
+
 
     // Burada {data} yerine response yazabilirdik. Response.data ile de cagirirdik.
     const fetchCities = async () => {
@@ -14,6 +21,7 @@ export default Main = (props) => {
             "http://opentable.herokuapp.com/api/cities",
             );
             setcityList(data.cities);
+            originalList = [...data.cities]
     }
 
     React.useEffect(() => {
@@ -21,6 +29,15 @@ export default Main = (props) => {
         }, [])
 
     const renderItem = ({item}) => <City cityName={item}/>;
+
+    function onCitySearch(text){
+        const filteredCityList = originalList.filter(item => {
+            const userText = text.toUpperCase();
+            const cityName = item.toUpperCase();
+            return cityName.indexOf(userText) > -1;
+        });
+        setcityList(filteredCityList);
+    }
 
     return(
         <SafeAreaView style={{flex:1}}>
@@ -35,7 +52,7 @@ export default Main = (props) => {
                     }}
                 />
                 <View style={{position:'absolute'}}>
-                    <SearchBar/>
+                    <SearchBar onSearch={onCitySearch}/>
                     <FlatList
                         horizontal
                         data={cityList}
