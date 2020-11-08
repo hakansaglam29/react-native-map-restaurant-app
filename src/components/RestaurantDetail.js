@@ -9,6 +9,7 @@ const RestaurantDetail = (props) => {
         <Modal
             isVisible={props.isVisible}
             style={detail.modal}
+            onBackdropPress={props.onBackdropPress}
         >
             <View style={detail.container}>
                 <Text style={detail.name}>{props.restaurant.name}</Text>

@@ -110,6 +110,7 @@ export default Main = (props) => {
                     <RestaurantDetail
                         isVisible={visible}
                         restaurant={selectedRestaurant}
+                        onBackdropPress={() => setVisible(false)}
                     />
                 </View>
             </View>
