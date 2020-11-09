@@ -111,6 +111,7 @@ export default Main = (props) => {
                         isVisible={visible}
                         restaurant={selectedRestaurant}
                         onBackdropPress={() => setVisible(false)}
+                        onSwipeComplete={() => setVisible(false)}
                     />
                 </View>
             </View>
