@@ -4,6 +4,7 @@ import Axios from 'axios'
 
 import { City, RestaurantDetail, SearchBar } from "./components";
 import MapView from 'react-native-maps';
+import { mapStyle } from './Style';
 
 
 
@@ -78,6 +79,7 @@ export default Main = (props) => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                 <MapView
+                    customMapStyle={mapStyle}
                     ref={mapRef}
                     style={{ flex: 1 }}
                     initialRegion={{
